@@ -4,7 +4,8 @@ import time
 
 picam2 = Picamera2()
 
-picam2.configure(picam2.still_configuration)
+# picam2.configure(picam2.still_configuration) - swapped this for the following line where I can control the size
+picam2.configure(picam2.create_still_configuration(main={"size": (1920, 1080)}))
 picam2.start_preview(Preview.NULL)
 
 # set focus manually to infinity
