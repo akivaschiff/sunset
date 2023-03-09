@@ -14,10 +14,10 @@ while True:
     current_time = time.strftime("%Y-%m-%d_%H-%M-%S")
 
     # Take a picture and save it with the timestamp in the filename
-    picam2.capture_file(f"image_{current_time}.jpg")
+    picam2.capture_file(f"images/image_{current_time}.jpg")
 
     # Wait for 2 minutes
-    time.sleep(30)
+    time.sleep(120)
 
 
 picam2.stop_preview()
