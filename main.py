@@ -1,19 +1,24 @@
+from datetime import datetime
 import time
 import importlib  
 import sys
+import intervaler
 
-moduleName = 'camera-test' if sys.argv[-1] == 'test' else 'camera'
-camera = importlib.import_module(moduleName) 
+testMode = 'test' in sys.argv
+camera = importlib.import_module('camera-test' if testMode else 'camera') 
 
 camera.init()
 while True:
+
     # Get the current time
     current_time = time.strftime("%Y-%m-%d_%H-%M-%S")
-
     # Take a picture and save it with the timestamp in the filename
     camera.capture(f"images/image_{current_time}.jpg")
 
-    # Wait for 30 seconds
-    time.sleep(30)
+    # Sleep till next image
+    seconds_to_wait = intervaler.getInterval(datetime.now())
+    if testMode:
+    	print(f"waiting {seconds_to_wait} seconds till next picture")
+    time.sleep(seconds_to_wait)
 
 camera.destroy()
