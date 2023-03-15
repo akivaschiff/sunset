@@ -1,7 +1,7 @@
 import sys
-
+import os
 import cloudinary
-from cloudinary.uploader import upload
+from cloudinary.uploader import upload, upload_large
 from cloudinary.utils import cloudinary_url
 
 date_prefix = datetime.now().strftime("%Y-%m-%d") if len(sys.argv) == 1 else sys.argv[1]
@@ -18,11 +18,14 @@ cloudinary.config(
   secure = True
 )
 
-# Upload
-upload(video_file_name, public_id=f'timelapse_{date_prefix}')
+print(f'uploading {video_file_name}')
 
-# Transform
-url, options = cloudinary_url('timelapse_{date_prefix}')
+response = upload_large(video_file_name, 
+  resource_type = "video",
+  public_id = f'timelapse_{date_prefix}',
+  chunk_size = 6000000,
+  eager_async = True,
+)
 
-print(url)
-print(options)
+print(response['url'])
+print(response['public_url'])
