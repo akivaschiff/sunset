@@ -1,32 +1,19 @@
-from picamera2 import Picamera2, Preview
-from libcamera import controls
 import time
+import importlib  
+import sys
 
-picam2 = Picamera2()
+moduleName = 'camera-test' if sys.argv[-1] == 'test' else 'camera'
+camera = importlib.import_module(moduleName) 
 
-# picam2.configure(picam2.still_configuration) - swapped this for the following line where I can control the size
-picam2.configure(picam2.create_still_configuration(main={"size": (1920, 1080)}))
-picam2.start_preview(Preview.NULL)
-
-# set focus manually to infinity
-# for some reason, autofocus doesn't work for me with no preview and stills capture
-picam2.set_controls({"AfMode": controls.AfModeEnum.Manual, "LensPosition": 0.0})
-
-# wait one second
-time.sleep(1)
-picam2.start()
-
-# Loop forever
+camera.init()
 while True:
     # Get the current time
     current_time = time.strftime("%Y-%m-%d_%H-%M-%S")
 
     # Take a picture and save it with the timestamp in the filename
-    picam2.capture_file(f"images/image_{current_time}.jpg")
+    camera.capture(f"images/image_{current_time}.jpg")
 
     # Wait for 30 seconds
     time.sleep(30)
 
-
-picam2.stop_preview()
-picam2.stop()
+camera.destroy()
