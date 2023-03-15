@@ -28,4 +28,4 @@ response = upload_large(video_file_name,
 )
 
 print(response['url'])
-print(response['public_url'])
+print(response['playback_url'])
