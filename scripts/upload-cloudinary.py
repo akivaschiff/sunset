@@ -1,6 +1,14 @@
+import sys
+
 import cloudinary
 from cloudinary.uploader import upload
 from cloudinary.utils import cloudinary_url
+
+date_prefix = datetime.now().strftime("%Y-%m-%d") if len(sys.argv) == 1 else sys.argv[1]
+
+directory = './timelapses'
+
+video_file_name = os.path.join(directory, f'{date_prefix}.mp4')
 
 # Config
 cloudinary.config(
@@ -11,10 +19,10 @@ cloudinary.config(
 )
 
 # Upload
-upload("./images/results-storm/image_2023-03-13_18-51-47.jpg", public_id="test_image")
+upload(video_file_name, public_id=f'timelapse_{date_prefix}')
 
 # Transform
-url, options = cloudinary_url("test_image")
+url, options = cloudinary_url('timelapse_{date_prefix}')
 
 print(url)
 print(options)

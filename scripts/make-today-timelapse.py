@@ -18,7 +18,7 @@ image_folder = './images'
 fps = 30.0
 
 # get a list of all the image filenames in the folder
-image_filenames = [os.path.join(image_folder, f) for f in os.listdir(image_folder) if f.endswith('.jpg') and f.startswith(f'image_{date_prefix}')]
+image_filenames = [os.path.join(image_folder, f) for f in os.listdir(image_folder) if f.endswith('.jpg') and f > f'image_{date_prefix}_15-30'  and f < f'image_{date_prefix}_19-15']
 
 # sort the image filenames in alphabetical order
 image_filenames.sort()
