@@ -1,8 +1,13 @@
-from datetime import datetime
+from datetime import datetime, timedelta
 import time
 import importlib  
 import sys
 import intervaler
+import pytz
+
+israel_tz = pytz.timezone('Israel')
+israel_tz._utcoffset = timedelta(seconds=7200)
+
 
 testMode = 'test' in sys.argv
 camera = importlib.import_module('camera-test' if testMode else 'camera') 
@@ -16,7 +21,7 @@ while True:
     camera.capture(f"images/image_{current_time}.jpg")
 
     # Sleep till next image
-    seconds_to_wait = intervaler.getInterval(datetime.now())
+    seconds_to_wait = intervaler.getInterval(datetime.now(israel_tz))
     if testMode:
     	print(f"waiting {seconds_to_wait} seconds till next picture")
     time.sleep(seconds_to_wait)
