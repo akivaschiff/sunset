@@ -2,6 +2,8 @@ from picamera2 import Picamera2, Preview
 from libcamera import controls
 import time
 
+picam2 = ''
+
 def init():
 	picam2 = Picamera2()
 
