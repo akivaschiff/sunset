@@ -22,7 +22,7 @@ def init():
 
 def capture(filename):
 	global picam2
-    picam2.capture_file(filename)
+	picam2.capture_file(filename)
 
 def destroy():
 	global picam2
