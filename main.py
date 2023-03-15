@@ -22,8 +22,7 @@ while True:
 
     # Sleep till next image
     seconds_to_wait = intervaler.getInterval(datetime.now(israel_tz))
-    if testMode:
-    	print(f"waiting {seconds_to_wait} seconds till next picture")
+    print(f"waiting {seconds_to_wait} seconds till next picture")
     time.sleep(seconds_to_wait)
 
 camera.destroy()
