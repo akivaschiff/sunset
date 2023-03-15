@@ -5,6 +5,7 @@ import time
 picam2 = ''
 
 def init():
+	global picam2
 	picam2 = Picamera2()
 
 	# picam2.configure(picam2.still_configuration) - swapped this for the following line where I can control the size
@@ -20,8 +21,10 @@ def init():
 	picam2.start()
 
 def capture(filename):
+	global picam2
     picam2.capture_file(filename)
 
 def destroy():
+	global picam2
 	picam2.stop_preview()
 	picam2.stop()
