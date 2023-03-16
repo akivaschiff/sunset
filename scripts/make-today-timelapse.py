@@ -35,7 +35,7 @@ img = cv2.imread(image_filenames[0])
 height, width, channels = img.shape
 
 # create a video writer object with the specified frame rate and size
-fourcc = cv2.VideoWriter_fourcc(*'mp4v') # specify the codec for the output video
+fourcc = cv2.VideoWriter_fourcc(*'H264') # specify the codec for the output video
 out = cv2.VideoWriter(video_file_name, fourcc, fps, (width, height))
 
 # loop through each image in the folder and write it to the video
