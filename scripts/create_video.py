@@ -3,14 +3,12 @@ import os
 import sys
 
 def create_video(image_filenames, video_file_name):
-	print(f'creating video from {len(image_filenames)} images at {video_file_name}')
-
 	# open the first image to get the image size
 	img = cv2.imread(image_filenames[0])
 	height, width, channels = img.shape
 
 	# create a video writer object with the specified frame rate and size
-	fourcc = cv2.VideoWriter_fourcc(*'H264') # specify the codec for the output video
+	fourcc = cv2.VideoWriter_fourcc(*'mp4v') # specify the codec for the output video
 	# the web uses a different codec: we will convert later because not sure how here
 	temp_video_file_name = f'{video_file_name}.other-codec.mp4'
 	out = cv2.VideoWriter(temp_video_file_name, fourcc, 30.0, (width, height))
