@@ -12,8 +12,8 @@ image_folder = './images'
 if not os.path.exists(directory):
     os.makedirs(directory)
 
-#date_prefix = datetime.now().strftime("%Y-%m-%d")
-date_prefix = '2023-03-14'
+date_prefix = datetime.now().strftime("%Y-%m-%d")
+#date_prefix = '2023-03-14'
 
 # get a list of all the image filenames in the folder
 image_filenames = [os.path.join(image_folder, f) for f in os.listdir(image_folder) if f.endswith('.jpg') and f > f'image_{date_prefix}_15-30'  and f < f'image_{date_prefix}_19-15']
