@@ -1,48 +1,34 @@
 import cv2
 import os
 import sys
-from datetime import datetime
 
-date_prefix = datetime.now().strftime("%Y-%m-%d") if len(sys.argv) == 1 else sys.argv[1]
+def create_video(image_filenames, video_file_name):
+	print(f'creating video from {len(image_filenames)} images at {video_file_name}')
 
-# create timelapse directory
-directory = './timelapses'
+	# open the first image to get the image size
+	img = cv2.imread(image_filenames[0])
+	height, width, channels = img.shape
 
-if not os.path.exists(directory):
-    os.makedirs(directory)
+	# create a video writer object with the specified frame rate and size
+	fourcc = cv2.VideoWriter_fourcc(*'H264') # specify the codec for the output video
+	# the web uses a different codec: we will convert later because not sure how here
+	temp_video_file_name = f'{video_file_name}.other-codec.mp4'
+	out = cv2.VideoWriter(temp_video_file_name, fourcc, 30.0, (width, height))
 
-# specify the path to the folder containing the images
-image_folder = './images'
+	# loop through each image in the folder and write it to the video
+	for image_filename in image_filenames:
+	    img = cv2.imread(image_filename)
+	    out.write(img)
 
-# specify the desired frame rate of the output video
-fps = 30.0
+	# release the video writer and close all windows
+	out.release()
+	cv2.destroyAllWindows()
 
-# get a list of all the image filenames in the folder
-image_filenames = [os.path.join(image_folder, f) for f in os.listdir(image_folder) if f.endswith('.jpg') and f > f'image_{date_prefix}_15-30'  and f < f'image_{date_prefix}_19-15']
+	# convert codec
+	os.system(f"ffmpeg -i {temp_video_file_name} -vcodec libx264 {video_file_name}")
+	os.remove(temp_video_file_name)
 
-# sort the image filenames in alphabetical order
-image_filenames.sort()
 
-if len(image_filenames) == 0:
-	print('Could not find any images')
-	sys.exit(0)
 
-video_file_name = os.path.join(directory, f'{date_prefix}.mp4')
-print(f'creating video from {len(image_filenames)} images at {video_file_name}')
-
-# open the first image to get the image size
-img = cv2.imread(image_filenames[0])
-height, width, channels = img.shape
-
-# create a video writer object with the specified frame rate and size
-fourcc = cv2.VideoWriter_fourcc(*'H264') # specify the codec for the output video
-out = cv2.VideoWriter(video_file_name, fourcc, fps, (width, height))
-
-# loop through each image in the folder and write it to the video
-for image_filename in image_filenames:
-    img = cv2.imread(image_filename)
-    out.write(img)
-
-# release the video writer and close all windows
-out.release()
-cv2.destroyAllWindows()
+if __name__ == '__main__':
+	pass
