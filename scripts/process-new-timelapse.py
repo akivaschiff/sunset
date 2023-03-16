@@ -1,9 +1,8 @@
-
+import sys
 import os
 import upload_cloudinary
 import create_video
 from datetime import datetime
-
 
 # create timelapse directory
 directory = './timelapses'
@@ -12,11 +11,11 @@ image_folder = './images'
 if not os.path.exists(directory):
     os.makedirs(directory)
 
-date_prefix = datetime.now().strftime("%Y-%m-%d")
 #date_prefix = '2023-03-14'
+date_prefix = datetime.now().strftime("%Y-%m-%d")
 
 # get a list of all the image filenames in the folder
-image_filenames = [os.path.join(image_folder, f) for f in os.listdir(image_folder) if f.endswith('.jpg') and f > f'image_{date_prefix}_15-30'  and f < f'image_{date_prefix}_19-15']
+image_filenames = [os.path.join(image_folder, f) for f in os.listdir(image_folder) if f.endswith('.jpg') and f.startswith(f'image_{date_prefix}')]
 
 # sort the image filenames in alphabetical order
 image_filenames.sort()

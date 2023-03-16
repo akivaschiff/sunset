@@ -18,7 +18,7 @@ def getInterval(current_date_time):
 		golden_hour_rising_start,
 		golden_hour_rising_end,
 		s['noon'] + timedelta(hours = 1),
-		golden_hour_setting_start,
+		golden_hour_setting_start - timedelta(minutes = 45),
 		golden_hour_setting_end,
 		s['dusk'] + timedelta(minutes = 30),
 	]
