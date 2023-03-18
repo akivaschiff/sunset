@@ -29,15 +29,15 @@ def getInterval(current_date_time):
 
 	intervals = [
 		30,
-		60,
 		30,
+		20,
 		10,
 		30,
 	]
 	interval_index = [index for index, times in enumerate(zip(points_in_time[:-1], points_in_time[1:])) if times[0] <= current_date_time <= times[1]]
 	if interval_index:
 		return intervals[interval_index[0]]
-	return 180
+	return 60
 
 if __name__ == '__main__':
 	import pytz
