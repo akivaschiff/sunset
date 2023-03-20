@@ -10,7 +10,7 @@ israel_tz._utcoffset = timedelta(seconds = 7200)
 city = LocationInfo("Jerusalem", "Israel", "Israel", 31.7683, 35.2137)
 
 def image_name_to_date(image_name):
-    date = datetime.strptime(image_name, 'image_%Y-%m-%d_%H-%M-%S.jpg')
+    date = datetime.strptime(image_name[-23:-4], '%Y-%m-%d_%H-%M-%S')
     return israel_tz.localize(date)
 
 def choose_timelapse_images(image_files, current_date_time):
