@@ -11,18 +11,19 @@ image_folder = './images'
 if not os.path.exists(directory):
     os.makedirs(directory)
 
-#date_prefix = '2023-03-14'
+# date_prefix = '2023-03-14'
 date_prefix = datetime.now().strftime("%Y-%m-%d")
 
 # get a list of all the image filenames in the folder
-image_filenames = [os.path.join(image_folder, f) for f in os.listdir(image_folder) if f.endswith('.jpg') and f.startswith(f'image_{date_prefix}')]
+image_filenames = [os.path.join(image_folder, f) for f in os.listdir(image_folder) if
+                   f.endswith('.jpg') and f.startswith(f'image_{date_prefix}')]
 
 # sort the image filenames in alphabetical order
 image_filenames.sort()
 
 if len(image_filenames) == 0:
-	print('Could not find any images')
-	sys.exit(0)
+    print('Could not find any images')
+    sys.exit(0)
 
 video_file_name = os.path.join(directory, f'timelapse_{date_prefix}.mp4')
 
@@ -31,7 +32,3 @@ create_video.create_video(image_filenames, video_file_name)
 print('finished creating video. uploading...')
 url = upload_cloudinary.upload(video_file_name, f'timelapse_{date_prefix}')
 print(f'file uploaded successfully to: {url}')
-
-
-
-
