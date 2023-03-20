@@ -10,12 +10,12 @@ def init():
     picam2 = Picamera2()
 
     # picam2.configure(picam2.still_configuration) - swapped this for the following line where I can control the size
-    picam2.configure(picam2.create_still_configuration(main={"size": (1920, 1080)}))
+    picam2.configure(picam2.create_still_configuration(main = { "size": (1920, 1080) }))
     picam2.start_preview(Preview.NULL)
 
     # set focus manually to infinity
     # for some reason, autofocus doesn't work for me with no preview and stills capture
-    picam2.set_controls({"AfMode": controls.AfModeEnum.Manual, "LensPosition": 0.0})
+    picam2.set_controls({ "AfMode": controls.AfModeEnum.Manual, "LensPosition": 0.0 })
 
     # wait one second
     time.sleep(1)

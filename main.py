@@ -1,20 +1,18 @@
 from datetime import datetime, timedelta
 import time
-import importlib  
+import importlib
 import sys
 import intervaler
 import pytz
 
 israel_tz = pytz.timezone('Israel')
-israel_tz._utcoffset = timedelta(seconds=7200)
-
+israel_tz._utcoffset = timedelta(seconds = 7200)
 
 testMode = 'test' in sys.argv
-camera = importlib.import_module('camera-test' if testMode else 'camera') 
+camera = importlib.import_module('camera-test' if testMode else 'camera')
 
 camera.init()
 while True:
-
     # Get the current time
     current_time = time.strftime("%Y-%m-%d_%H-%M-%S")
     # Take a picture and save it with the timestamp in the filename

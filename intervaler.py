@@ -11,20 +11,21 @@ def betweener(current_date_time):
 
 
 def getInterval(current_date_time):
-    golden_hour_rising_start, golden_hour_rising_end = golden_hour(city.observer, date=current_date_time.date(),
-                                                                   tzinfo=city.timezone, direction=SunDirection.RISING)
-    golden_hour_setting_start, golden_hour_setting_end = golden_hour(city.observer, date=current_date_time.date(),
-                                                                     tzinfo=city.timezone,
-                                                                     direction=SunDirection.SETTING)
-    s = sun(city.observer, date=current_date_time.date(), tzinfo=city.timezone)
+    golden_hour_rising_start, golden_hour_rising_end = golden_hour(city.observer, date = current_date_time.date(),
+                                                                   tzinfo = city.timezone,
+                                                                   direction = SunDirection.RISING)
+    golden_hour_setting_start, golden_hour_setting_end = golden_hour(city.observer, date = current_date_time.date(),
+                                                                     tzinfo = city.timezone,
+                                                                     direction = SunDirection.SETTING)
+    s = sun(city.observer, date = current_date_time.date(), tzinfo = city.timezone)
 
     points_in_time = [
         golden_hour_rising_start,
         golden_hour_rising_end,
-        s['noon'] + timedelta(hours=1),
-        golden_hour_setting_start - timedelta(minutes=45),
+        s['noon'] + timedelta(hours = 1),
+        golden_hour_setting_start - timedelta(minutes = 45),
         golden_hour_setting_end,
-        s['dusk'] + timedelta(minutes=30),
+        s['dusk'] + timedelta(minutes = 30),
     ]
     # print(current_date_time)
     # print('===============')
@@ -49,7 +50,7 @@ if __name__ == '__main__':
     import pytz
 
     israel_tz = pytz.timezone('Israel')
-    israel_tz._utcoffset = timedelta(seconds=7200)
+    israel_tz._utcoffset = timedelta(seconds = 7200)
 
     print('running intervaler tests')
     assert getInterval(datetime(2023, 3, 14, 18, 0, 0, 0, israel_tz)) == 10

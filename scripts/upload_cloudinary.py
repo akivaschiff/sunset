@@ -7,18 +7,18 @@ from cloudinary.uploader import upload, upload_large
 def upload(local_file_path, remote_name):
     # Config
     cloudinary.config(
-        cloud_name="dzo9qayar",
-        api_key="241333354157767",
-        api_secret="Vw3cuMYeVhsmcaoBZ5bfEWsldds",
-        secure=True
+        cloud_name = "dzo9qayar",
+        api_key = "241333354157767",
+        api_secret = "Vw3cuMYeVhsmcaoBZ5bfEWsldds",
+        secure = True
     )
 
     response = upload_large(local_file_path,
-                            folder='timelapses',
-                            resource_type="video",
-                            public_id=remote_name,
-                            chunk_size=6000000,
-                            eager_async=True,
+                            folder = 'timelapses',
+                            resource_type = "video",
+                            public_id = remote_name,
+                            chunk_size = 6000000,
+                            eager_async = True,
                             )
     return response['url']
 
