@@ -1,7 +1,7 @@
 import sys
 import os
 import cloudinary
-from cloudinary.uploader import upload, upload_large
+from cloudinary.uploader import upload_large
 
 
 def upload(local_file_path, remote_name):
