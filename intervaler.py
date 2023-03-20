@@ -11,33 +11,21 @@ def betweener(current_date_time):
 
 
 def getInterval(current_date_time):
-    golden_hour_rising_start, golden_hour_rising_end = golden_hour(city.observer, date = current_date_time.date(),
-                                                                   tzinfo = city.timezone,
-                                                                   direction = SunDirection.RISING)
     golden_hour_setting_start, golden_hour_setting_end = golden_hour(city.observer, date = current_date_time.date(),
                                                                      tzinfo = city.timezone,
                                                                      direction = SunDirection.SETTING)
     s = sun(city.observer, date = current_date_time.date(), tzinfo = city.timezone)
-
     points_in_time = [
-        golden_hour_rising_start,
-        golden_hour_rising_end,
-        s['noon'] + timedelta(hours = 1),
-        golden_hour_setting_start - timedelta(minutes = 45),
+        s['dawn'] - timedelta(minutes = 15),
+        golden_hour_setting_start - timedelta(minutes = 30),
         golden_hour_setting_end,
-        s['dusk'] + timedelta(minutes = 30),
+        s['dusk'] + timedelta(minutes = 15),
     ]
-    # print(current_date_time)
-    # print('===============')
-    # for point in points_in_time:
-    # 	print(point)
 
     intervals = [
         30,
-        30,
-        20,
         10,
-        30,
+        20,
     ]
     interval_index = [index for index, times in enumerate(zip(points_in_time[:-1], points_in_time[1:])) if
                       times[0] <= current_date_time <= times[1]]
@@ -54,10 +42,8 @@ if __name__ == '__main__':
 
     print('running intervaler tests')
     assert getInterval(datetime(2023, 3, 14, 18, 0, 0, 0, israel_tz)) == 10
-    assert getInterval(datetime(2023, 3, 14, 18, 30, 0, 0, israel_tz)) == 30
+    assert getInterval(datetime(2023, 3, 14, 18, 25, 0, 0, israel_tz)) == 20
     assert getInterval(datetime(2023, 3, 14, 5, 40, 0, 0, israel_tz)) == 30
-    assert getInterval(datetime(2023, 3, 14, 12, 0, 0, 0, israel_tz)) == 60
-    assert getInterval(datetime(2023, 3, 14, 15, 30, 0, 0, israel_tz)) == 30
-    assert getInterval(datetime(2023, 3, 14, 0, 30, 0, 0, israel_tz)) == 180
+    assert getInterval(datetime(2023, 3, 14, 0, 30, 0, 0, israel_tz)) == 60
 
     print('tests pass!')
