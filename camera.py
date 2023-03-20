@@ -1,11 +1,14 @@
 from picamera2 import Picamera2, Preview
 from libcamera import controls
 import time
+import os
 
 picam2 = ''
 
 
 def init():
+    os.system("v4l2-ctl --set-ctrl wide_dynamic_range=1 -d /dev/v4l-subdev0")
+
     global picam2
     picam2 = Picamera2()
 
