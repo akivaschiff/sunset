@@ -18,7 +18,7 @@ date_prefix = datetime.now().strftime("%Y-%m-%d")
 # get a list of all the image filenames in the folder
 all_image_filenames = [os.path.join(image_folder, f) for f in os.listdir(image_folder) if
                    f.endswith('.jpg') and f.startswith(f'image_{date_prefix}')]
-image_filenames = image_selector.choose_timelapse_images(all_image_filenames)
+image_filenames = image_selector.choose_timelapse_images(all_image_filenames, datetime.now())
 
 # sort the image filenames in alphabetical order
 image_filenames.sort()
